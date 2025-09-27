@@ -105,17 +105,11 @@ h1, h2, h3 {
 
 /* Main Content and Slides */
 #main-content {
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    min-height: 100vh;
     display: none;
-    position: relative;
-    overflow-y: hidden;
 }
 
 .slide {
-    width: 100%;
     min-height: 100vh;
     height: auto;
     display: flex;
@@ -128,21 +122,6 @@ h1, h2, h3 {
     box-sizing: border-box;
     background: var(--off-white);
     color: var(--text-color);
-    position: absolute;
-    top: 0;
-    left: 0;
-    visibility: hidden;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-    overflow-y: auto;
-}
-
-.slide.active {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(0%);
-    position: relative; /* Perbaikan: agar slide aktif memiliki posisi relatif dan kontennya tidak hilang */
 }
 
 .slide h2, .slide h1 {
@@ -319,23 +298,9 @@ h1, h2, h3 {
     padding-bottom: 50px;
 }
 
-/* Swipe Hint */
+/* Swipe Hint (dihilangkan karena tidak lagi menggunakan swipe) */
 .swipe-hint {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1rem;
-    font-weight: bold;
-    color: var(--sage-green);
-    letter-spacing: 2px;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1) translateX(-50%); opacity: 0.5; }
-    50% { transform: scale(1.1) translateX(-50%); opacity: 1; }
-    100% { transform: scale(1) translateX(-50%); opacity: 0.5; }
+    display: none;
 }
 
 /* Music Button */
