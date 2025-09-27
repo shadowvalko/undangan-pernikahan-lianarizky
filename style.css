@@ -142,6 +142,7 @@ h1, h2, h3 {
     visibility: visible;
     opacity: 1;
     transform: translateX(0%);
+    position: relative; /* Perbaikan: agar slide aktif memiliki posisi relatif dan kontennya tidak hilang */
 }
 
 .slide h2, .slide h1 {
