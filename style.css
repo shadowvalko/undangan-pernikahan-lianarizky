@@ -1,13 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap');
 
+:root {
+    --sage-green: #A1A686;
+    --dark-sage: #808569;
+    --off-white: #F5F5F5;
+    --text-color: #333;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    color: #333;
+    color: var(--text-color);
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background: #f9f6f1;
-    overflow: hidden; /* Mencegah scrolling */
+    background: var(--off-white);
+    overflow: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -77,7 +84,7 @@ h1, h2, h3 {
 .open-button {
     font-family: 'Poppins', sans-serif;
     font-size: clamp(0.9rem, 3vw, 1.1rem);
-    background-color: #6a4f41;
+    background-color: var(--sage-green);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -87,7 +94,7 @@ h1, h2, h3 {
 }
 
 .open-button:hover {
-    background-color: #553e34;
+    background-color: var(--dark-sage);
 }
 
 /* Main Content and Slides */
@@ -96,7 +103,7 @@ h1, h2, h3 {
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
-    display: none; /* Disembunyikan sampai tombol "Buka Undangan" ditekan */
+    display: none;
     position: relative;
 }
 
@@ -110,15 +117,15 @@ h1, h2, h3 {
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    background: #f9f6f1;
-    color: #333;
+    background: var(--off-white);
+    color: var(--text-color);
     position: absolute;
     top: 0;
     left: 0;
     visibility: hidden;
     opacity: 0;
-    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
     transform: translateX(100%);
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
 }
 
 .slide.active {
@@ -134,18 +141,18 @@ h1, h2, h3 {
 
 .section-title i {
     font-size: clamp(1.5rem, 6vw, 2rem);
-    color: #6a4f41;
+    color: var(--sage-green);
     margin-bottom: 10px;
 }
 
 /* Slide-specific styling */
 #slide-1 {
-    background-color: #f4ece0;
-    color: #555;
+    background-color: var(--off-white);
+    color: var(--text-color);
 }
 
 #slide-2 {
-    background-color: #f9f6f1;
+    background-color: var(--off-white);
 }
 
 .couple-photo-container {
@@ -165,7 +172,7 @@ h1, h2, h3 {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #6a4f41;
+    border: 3px solid var(--sage-green);
 }
 
 .couple-name {
@@ -205,7 +212,7 @@ h1, h2, h3 {
 
 .map-container {
     margin: 20px 0;
-    border: 3px solid #6a4f41;
+    border: 3px solid var(--sage-green);
     overflow: hidden;
     height: 250px;
     width: 100%;
@@ -220,7 +227,7 @@ h1, h2, h3 {
 
 .maps-button {
     display: inline-block;
-    background-color: #6a4f41;
+    background-color: var(--sage-green);
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -230,7 +237,7 @@ h1, h2, h3 {
 }
 
 .maps-button:hover {
-    background-color: #553e34;
+    background-color: var(--dark-sage);
 }
 
 /* Love Gift Section */
@@ -248,7 +255,7 @@ h1, h2, h3 {
 .copy-button {
     font-size: 0.9rem;
     padding: 5px 10px;
-    border: 1px solid #6a4f41;
+    border: 1px solid var(--sage-green);
     border-radius: 5px;
     background-color: transparent;
     cursor: pointer;
@@ -256,7 +263,7 @@ h1, h2, h3 {
 }
 
 .copy-button:hover {
-    background-color: #6a4f41;
+    background-color: var(--sage-green);
     color: #fff;
 }
 
@@ -303,7 +310,7 @@ h1, h2, h3 {
 
 /* Navigation Buttons */
 .nav-button {
-    background-color: #6a4f41;
+    background-color: var(--sage-green);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -315,9 +322,8 @@ h1, h2, h3 {
 }
 
 .nav-button:hover {
-    background-color: #553e34;
+    background-color: var(--dark-sage);
 }
-
 
 /* Music Button */
 .music-button {
@@ -327,7 +333,7 @@ h1, h2, h3 {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(106, 79, 65, 0.7);
+    background-color: rgba(161, 166, 134, 0.7);
     color: #fff;
     border: none;
     cursor: pointer;
@@ -340,7 +346,7 @@ h1, h2, h3 {
 }
 
 .music-button:hover {
-    background-color: rgba(85, 62, 52, 0.8);
+    background-color: rgba(128, 133, 105, 0.8);
 }
 
 .music-button i {
@@ -368,7 +374,7 @@ h1, h2, h3 {
 }
 
 .animated-leaf svg {
-    fill: #f0e6d6;
+    fill: #e6e6e6;
     width: 100%;
     height: 100%;
 }
