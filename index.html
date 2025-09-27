@@ -34,7 +34,7 @@
         </div>
         <div class="animated-leaf leaf-5" style="--initial-rotation: 60deg;">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M72.2,4.8c-1.5-1.9-4.2-2.1-6-0.6L12.5,50c-1.9,1.5-2.1,4.2-0.6,6l12.8,16.5c1.5,1.9,4.2,2.1,6,0.6l53.7-44.1c1.9-1.5,2.1-4.2,0.6,6L72.2,4.8z M25.8,72.4c-1.5,1.9-4.2,2.1-6,0.6L0.2,56.5c-1.9-1.5-2.1-4.2-0.6-6L14.4,31.4c1.5-1.9,4.2-2.1,6-0.6l19.5,15.1c1.9,1.5,2.1,4.2,0.6,6L25.8,72.4z M52.2,44.9l-11-14.1c-1.5-1.9-4.2-2.1-6-0.6l-5.6,4.4c-1.9,1.5-2.1,4.2-0.6,6l11,14.1c1.5,1.9,4.2,2.1,6,0.6l5.6-4.4C52.8,49.8,53,47.1,51.5,45.3z" />
+                <path d="M72.2,4.8c-1.5-1.9-4.2-2.1-6-0.6L12.5,50c-1.9,1.5-2.1,4.2-0.6,6l12.8,16.5c1.5,1.9,4.2,2.1,6,0.6l53.7-44.1c1.9-1.5,2.1-4.2,0.6,6L72.2,4.8z M25.8,72.4c-1.5,1.9-4.2-2.1-6,0.6L0.2,56.5c-1.9-1.5-2.1-4.2-0.6-6L14.4,31.4c1.5-1.9,4.2-2.1,6-0.6l19.5,15.1c1.9,1.5,2.1,4.2,0.6,6L25.8,72.4z M52.2,44.9l-11-14.1c-1.5-1.9-4.2-2.1-6-0.6l-5.6,4.4c-1.9,1.5-2.1,4.2-0.6,6l11,14.1c1.5,1.9,4.2,2.1,6,0.6l5.6-4.4C52.8,49.8,53,47.1,51.5,45.3z" />
             </svg>
         </div>
         <div class="animated-leaf leaf-6" style="--initial-rotation: -50deg;">
@@ -56,7 +56,7 @@
     </div>
 
     <div id="main-content">
-        <section id="slide-1" class="slide active">
+        <section id="slide-1" class="slide">
             <h1 class="names">The Wedding Of<br>Liana & Rizky</h1>
             <p class="caption">Save The Date</p>
             <div class="countdown" id="countdown-timer">
@@ -77,7 +77,6 @@
                     <span class="countdown-label">Detik</span>
                 </div>
             </div>
-            <div class="swipe-hint">SWIPE</div>
         </section>
 
         <section id="slide-2" class="slide">
@@ -102,7 +101,6 @@
                     </div>
                 </div>
             </div>
-            <div class="swipe-hint">SWIPE</div>
         </section>
 
         <section id="slide-3" class="slide">
@@ -124,7 +122,6 @@
                     <i class="fas fa-map-marker-alt"></i> Lihat Lokasi
                 </a>
             </div>
-            <div class="swipe-hint">SWIPE</div>
         </section>
 
         <section id="slide-4" class="slide">
@@ -146,7 +143,6 @@
                     <i class="fas fa-map-marker-alt"></i> Lihat Lokasi
                 </a>
             </div>
-            <div class="swipe-hint">SWIPE</div>
         </section>
 
         <section id="slide-5" class="slide">
@@ -175,7 +171,6 @@
                     Kecamatan Rancaekek, Kabupaten Bandung, Jawa Barat**
                 </p>
             </div>
-            <div class="swipe-hint">SWIPE</div>
         </section>
 
         <section id="slide-6" class="slide">
@@ -189,7 +184,6 @@
                     <small>QS. Ar-Rum Ayat 21</small>
                 </p>
             </div>
-            <div class="swipe-hint">SWIPE</div>
         </section>
 
         <section id="guestbook" class="slide">
@@ -208,7 +202,6 @@
                 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
                 <p class="thanks-note">Terima kasih atas ucapan dan doanya ya.</p>
             </div>
-            <div class="swipe-hint">SWIPE</div>
         </section>
         
         <section id="slide-7" class="slide closing-section">
@@ -238,97 +231,35 @@
             const openButton = document.getElementById('open-button');
             const coverPage = document.getElementById('cover');
             const mainContent = document.getElementById('main-content');
-            const slides = document.querySelectorAll('.slide');
             const musicButton = document.getElementById('music-button');
             const backgroundMusic = document.getElementById('background-music');
             const guestNameElement = document.getElementById('guest-name');
-
-            let currentSlide = 0;
-            let isMusicPlaying = false;
-            let autoSlideTimer;
-            const autoSlideDelay = 5000;
-            let touchStartX = 0;
 
             const urlParams = new URLSearchParams(window.location.search);
             const guestName = urlParams.get('to') || urlParams.get('nama') || 'Tamu Undangan';
             guestNameElement.textContent = guestName.replace(/\+/g, ' ');
 
-            const showSlide = (index) => {
-                slides.forEach((slide, i) => {
-                    slide.classList.remove('active');
-                });
-                slides[index].classList.add('active');
-                currentSlide = index;
-                resetAutoSlideTimer();
-            };
-
-            const goToNextSlide = () => {
-                if (currentSlide < slides.length - 1) {
-                    showSlide(currentSlide + 1);
-                } else {
-                    clearInterval(autoSlideTimer);
-                }
-            };
-            
-            const goToPrevSlide = () => {
-                if (currentSlide > 0) {
-                    showSlide(currentSlide - 1);
-                }
-            };
-
-            const resetAutoSlideTimer = () => {
-                clearInterval(autoSlideTimer);
-                if (currentSlide < slides.length - 1) {
-                    autoSlideTimer = setInterval(goToNextSlide, autoSlideDelay);
-                }
-            };
-
-
             openButton.addEventListener('click', () => {
                 coverPage.classList.add('hidden');
                 setTimeout(() => {
+                    coverPage.style.display = 'none';
                     mainContent.style.display = 'block';
-                    showSlide(0); 
-                    backgroundMusic.play().then(() => {
-                        isMusicPlaying = true;
-                    }).catch(error => {
+                    backgroundMusic.play().catch(error => {
                         console.error('Autoplay prevented:', error);
                     });
                 }, 1000);
             });
 
             musicButton.addEventListener('click', () => {
-                if (isMusicPlaying) {
-                    backgroundMusic.pause();
-                    isMusicPlaying = false;
-                    musicButton.querySelector('i').classList.remove('fa-pause');
-                    musicButton.querySelector('i').classList.add('fa-music');
-                } else {
+                if (backgroundMusic.paused) {
                     backgroundMusic.play();
-                    isMusicPlaying = true;
                     musicButton.querySelector('i').classList.remove('fa-music');
                     musicButton.querySelector('i').classList.add('fa-pause');
+                } else {
+                    backgroundMusic.pause();
+                    musicButton.querySelector('i').classList.remove('fa-pause');
+                    musicButton.querySelector('i').classList.add('fa-music');
                 }
-            });
-
-            // Touch events for swiping
-            mainContent.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-                clearInterval(autoSlideTimer);
-            });
-
-            mainContent.addEventListener('touchend', (e) => {
-                const touchEndX = e.changedTouches[0].clientX;
-                const swipeThreshold = 100; // Nilai ambang batas diperbesar agar tidak terlalu sensitif
-                const swipeDistance = touchEndX - touchStartX;
-
-                if (swipeDistance < -swipeThreshold) {
-                    goToNextSlide();
-                } else if (swipeDistance > swipeThreshold) {
-                    goToPrevSlide();
-                }
-
-                resetAutoSlideTimer();
             });
 
             const countDownDate = new Date("Oct 4, 2025 08:00:00").getTime();
