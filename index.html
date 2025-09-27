@@ -14,7 +14,7 @@
     <div class="animated-leaf-container">
         <div class="animated-leaf leaf-1" style="--initial-rotation: 20deg;">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M72.2,4.8c-1.5-1.9-4.2-2.1-6-0.6L12.5,50c-1.9,1.5-2.1,4.2-0.6,6l12.8,16.5c1.5,1.9,4.2,2.1,6,0.6l53.7-44.1c1.9-1.5,2.1-4.2,0.6-6L72.2,4.8z M25.8,72.4c-1.5,1.9-4.2,2.1-6,0.6L0.2,56.5c-1.9-1.5-2.1-4.2-0.6-6L14.4,31.4c1.5-1.9,4.2-2.1,6-0.6l19.5,15.1c1.9,1.5,2.1,4.2,0.6,6L25.8,72.4z M52.2,44.9l-11-14.1c-1.5-1.9-4.2-2.1-6-0.6l-5.6,4.4c-1.9,1.5-2.1-4.2-0.6,6l11,14.1c1.5,1.9,4.2,2.1,6,0.6l5.6-4.4C52.8,49.8,53,47.1,51.5,45.3z" />
+                <path d="M72.2,4.8c-1.5-1.9-4.2-2.1-6-0.6L12.5,50c-1.9,1.5-2.1,4.2-0.6,6l12.8,16.5c1.5,1.9,4.2,2.1,6,0.6l53.7-44.1c1.9-1.5,2.1-4.2,0.6-6L72.2,4.8z M25.8,72.4c-1.5,1.9-4.2,2.1-6,0.6L0.2,56.5c-1.9-1.5-2.1-4.2-0.6-6L14.4,31.4c1.5-1.9,4.2-2.1,6-0.6l19.5,15.1c1.9,1.5,2.1,4.2,0.6,6L25.8,72.4z M52.2,44.9l-11-14.1c-1.5-1.9-4.2-2.1-6-0.6l-5.6,4.4c-1.9,1.5-2.1,4.2-0.6,6l11,14.1c1.5,1.9,4.2,2.1,6,0.6l5.6-4.4C52.8,49.8,53,47.1,51.5,45.3z" />
             </svg>
         </div>
         <div class="animated-leaf leaf-2" style="--initial-rotation: -30deg;">
@@ -246,7 +246,9 @@
 
             let currentSlide = 0;
             let isMusicPlaying = false;
-            
+            let autoSlideTimer;
+            const autoSlideDelay = 5000; // Ganti angka ini untuk mengubah durasi (dalam milidetik). 5000 = 5 detik.
+
             const urlParams = new URLSearchParams(window.location.search);
             const guestName = urlParams.get('to') || urlParams.get('nama') || 'Tamu Undangan';
             guestNameElement.textContent = guestName.replace(/\+/g, ' ');
@@ -257,13 +259,29 @@
                 });
                 slides[index].classList.add('active');
                 currentSlide = index;
+                // Reset timer setiap kali slide ganti
+                resetAutoSlideTimer();
             };
 
             const goToNextSlide = () => {
+                // Jangan pindah slide jika sudah di slide terakhir (closing)
                 if (currentSlide < slides.length - 1) {
                     showSlide(currentSlide + 1);
+                } else {
+                    // Jika sudah di slide terakhir, hentikan timer
+                    clearInterval(autoSlideTimer);
                 }
             };
+            
+            const resetAutoSlideTimer = () => {
+                // Hentikan timer sebelumnya jika ada
+                clearInterval(autoSlideTimer);
+                // Set timer baru untuk pindah ke slide berikutnya
+                if (currentSlide < slides.length - 1) {
+                    autoSlideTimer = setInterval(goToNextSlide, autoSlideDelay);
+                }
+            };
+
 
             openButton.addEventListener('click', () => {
                 coverPage.classList.add('hidden');
@@ -280,7 +298,12 @@
             });
 
             nextButtons.forEach(button => {
-                button.addEventListener('click', goToNextSlide);
+                button.addEventListener('click', () => {
+                    // Pindah slide secara manual
+                    goToNextSlide();
+                    // Hentikan timer agar tidak langsung pindah lagi
+                    clearInterval(autoSlideTimer);
+                });
             });
 
             musicButton.addEventListener('click', () => {
