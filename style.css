@@ -111,14 +111,13 @@ h1, h2, h3 {
     min-height: 100vh;
     display: none;
     position: relative;
-    height: 100vh !important;
-    overflow-y: hidden !important;
+    overflow-y: hidden;
 }
 
 .slide {
     width: 100%;
-    min-height: 100vh !important;
-    height: auto !important; /* Memastikan tinggi slide bisa lebih dari 100vh */
+    min-height: 100vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -136,7 +135,7 @@ h1, h2, h3 {
     opacity: 0;
     transform: translateX(100%);
     transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-    overflow-y: auto !important; /* Memaksa fitur scroll agar berfungsi */
+    overflow-y: auto;
 }
 
 .slide.active {
