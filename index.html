@@ -247,7 +247,8 @@
             let currentSlide = 0;
             let isMusicPlaying = false;
             let autoSlideTimer;
-            const autoSlideDelay = 5000; // Ganti angka ini untuk mengubah durasi (dalam milidetik). 5000 = 5 detik.
+            const autoSlideDelay = 5000;
+            let touchStartX = 0;
 
             const urlParams = new URLSearchParams(window.location.search);
             const guestName = urlParams.get('to') || urlParams.get('nama') || 'Tamu Undangan';
@@ -259,24 +260,25 @@
                 });
                 slides[index].classList.add('active');
                 currentSlide = index;
-                // Reset timer setiap kali slide ganti
                 resetAutoSlideTimer();
             };
 
             const goToNextSlide = () => {
-                // Jangan pindah slide jika sudah di slide terakhir (closing)
                 if (currentSlide < slides.length - 1) {
                     showSlide(currentSlide + 1);
                 } else {
-                    // Jika sudah di slide terakhir, hentikan timer
                     clearInterval(autoSlideTimer);
                 }
             };
             
+            const goToPrevSlide = () => {
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
+            };
+
             const resetAutoSlideTimer = () => {
-                // Hentikan timer sebelumnya jika ada
                 clearInterval(autoSlideTimer);
-                // Set timer baru untuk pindah ke slide berikutnya
                 if (currentSlide < slides.length - 1) {
                     autoSlideTimer = setInterval(goToNextSlide, autoSlideDelay);
                 }
@@ -288,7 +290,6 @@
                 setTimeout(() => {
                     mainContent.style.display = 'block';
                     showSlide(0); 
-                    
                     backgroundMusic.play().then(() => {
                         isMusicPlaying = true;
                     }).catch(error => {
@@ -299,9 +300,7 @@
 
             nextButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // Pindah slide secara manual
                     goToNextSlide();
-                    // Hentikan timer agar tidak langsung pindah lagi
                     clearInterval(autoSlideTimer);
                 });
             });
@@ -318,6 +317,29 @@
                     musicButton.querySelector('i').classList.remove('fa-music');
                     musicButton.querySelector('i').classList.add('fa-pause');
                 }
+            });
+
+            // Touch events for swiping
+            mainContent.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                clearInterval(autoSlideTimer); // Hentikan timer saat mulai geser
+            });
+
+            mainContent.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].clientX;
+                const swipeThreshold = 50; // Jarak geser minimum untuk pindah slide
+                const swipeDistance = touchEndX - touchStartX;
+
+                if (swipeDistance < -swipeThreshold) {
+                    // Geser ke kiri (Next)
+                    goToNextSlide();
+                } else if (swipeDistance > swipeThreshold) {
+                    // Geser ke kanan (Previous)
+                    goToPrevSlide();
+                }
+
+                // Mulai lagi timer setelah selesai geser
+                resetAutoSlideTimer();
             });
 
             const countDownDate = new Date("Oct 4, 2025 08:00:00").getTime();
