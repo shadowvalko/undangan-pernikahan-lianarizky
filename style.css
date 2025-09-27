@@ -122,6 +122,7 @@ h1, h2, h3 {
     box-sizing: border-box;
     background: var(--off-white);
     color: var(--text-color);
+    position: relative;
 }
 
 .slide h2, .slide h1 {
@@ -331,53 +332,7 @@ h1, h2, h3 {
     font-size: 1.2rem;
 }
 
-/* Animated Leaves */
-.animated-leaf-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 10;
-}
-
-.animated-leaf {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    animation: fall linear infinite;
-    opacity: 0.8;
-}
-
-.animated-leaf svg {
-    fill: #e6e6e6;
-    width: 100%;
-    height: 100%;
-}
-
-.leaf-1 { animation-delay: 0s; left: 10%; animation-duration: 20s; }
-.leaf-2 { animation-delay: 2s; left: 30%; animation-duration: 22s; }
-.leaf-3 { animation-delay: 4s; left: 50%; animation-duration: 18s; }
-.leaf-4 { animation-delay: 6s; left: 70%; animation-duration: 25s; }
-.leaf-5 { animation-delay: 8s; left: 90%; animation-duration: 21s; }
-.leaf-6 { animation-delay: 10s; left: 20%; animation-duration: 23s; }
-.leaf-7 { animation-delay: 12s; left: 40%; animation-duration: 19s; }
-.leaf-8 { animation-delay: 14s; left: 60%; animation-duration: 24s; }
-.leaf-9 { animation-delay: 16s; left: 80%; animation-duration: 20s; }
-
-@keyframes fall {
-    0% {
-        transform: translateY(-100px) rotate(var(--initial-rotation));
-    }
-    100% {
-        transform: translateY(calc(100vh + 100px)) rotate(calc(var(--initial-rotation) + 360deg));
-    }
-}
-
-/* ---- Tambahkan kode ini di bagian bawah style.css ---- */
-
+/* Tambahan untuk scroll hint */
 .scroll-hint {
     position: absolute;
     bottom: 40px;
@@ -412,4 +367,55 @@ h1, h2, h3 {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* Animasi Bunga Baru (Pengganti Daun) */
+.flower-petal-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.petal {
+    position: absolute;
+    background-color: var(--sage-green);
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatUp 15s infinite ease-out;
+    transform: translateY(0) scale(0);
+}
+
+.petal:nth-child(1) { left: 10%; width: 12px; height: 12px; animation-delay: 0s; animation-duration: 14s; }
+.petal:nth-child(2) { left: 25%; width: 8px; height: 8px; animation-delay: 1.5s; animation-duration: 16s; }
+.petal:nth-child(3) { left: 5%; width: 10px; height: 10px; animation-delay: 3s; animation-duration: 15s; }
+.petal:nth-child(4) { left: 40%; width: 15px; height: 15px; animation-delay: 0.5s; animation-duration: 17s; }
+.petal:nth-child(5) { left: 60%; width: 9px; height: 9px; animation-delay: 2s; animation-duration: 13s; }
+.petal:nth-child(6) { left: 80%; width: 11px; height: 11px; animation-delay: 4s; animation-duration: 18s; }
+.petal:nth-child(7) { left: 15%; width: 7px; height: 7px; animation-delay: 1s; animation-duration: 16s; }
+.petal:nth-child(8) { left: 70%; width: 13px; height: 13px; animation-delay: 2.5s; animation-duration: 14s; }
+.petal:nth-child(9) { left: 30%; width: 10px; height: 10px; animation-delay: 3.5s; animation-duration: 17s; }
+.petal:nth-child(10) { left: 90%; width: 8px; height: 8px; animation-delay: 0s; animation-duration: 15s; }
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0) scale(0.5);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.7;
+        transform: translateY(-20vh) translateX(5px) scale(0.8);
+    }
+    80% {
+        opacity: 0.5;
+        transform: translateY(-80vh) translateX(-5px) scale(1);
+    }
+    100% {
+        transform: translateY(-100vh) translateX(0) scale(0.6);
+        opacity: 0;
+    }
 }
